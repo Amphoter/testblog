@@ -1,12 +1,23 @@
-﻿
+﻿@model Blog.Models.UserInfo
 @{
-    ViewData["Title"] = "UserPage";
+    ViewBag.Title = "UserPage";
 }
 
-<h1>@ViewBag.name</h1>
+
+Your information:
+<table class="table"
 
 
-<h1>@ViewBag.Message</h1>
+        <tr ><td>Login: @Model.Login</td></tr>
 
-<a class="btn btn-primary" asp-area="" asp-controller="Account" asp-action="SignOut">SignOut</a>
+        <tr><td>Name: @Model.Name</td></tr>
 
+        <tr><td>Email: @Model.Email </td></tr>
+
+        <tr><td>Age: @Model.Age</td></tr>
+        <tr><td>Password: @Model.Password
+
+        </table>
+<div><a class="btn btn-info" asp-action="EditUser" asp-controller="Account">Edit information </a> </div>
+<div><a class="btn btn-primary" asp-area="" asp-controller="Account" asp-action="SignOut">SignOut</a></div>
+<div><a class="btn btn-warning" asp-area="" asp-controller="Account" asp-action="DeleteUser">Delete my account</a></div>

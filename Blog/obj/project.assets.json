@@ -8177,11 +8177,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Prog\\c#\\Blog\\Blog\\Blog.csproj",
+      "projectUniqueName": "D:\\Prog\\c#\\Blog\\testblog\\Blog\\Blog.csproj",
       "projectName": "Blog",
-      "projectPath": "D:\\Prog\\c#\\Blog\\Blog\\Blog.csproj",
+      "projectPath": "D:\\Prog\\c#\\Blog\\testblog\\Blog\\Blog.csproj",
       "packagesPath": "C:\\Users\\Amphoter\\.nuget\\packages\\",
-      "outputPath": "D:\\Prog\\c#\\Blog\\Blog\\obj\\",
+      "outputPath": "D:\\Prog\\c#\\Blog\\testblog\\Blog\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Amphoter\\AppData\\Roaming\\NuGet\\NuGet.Config",

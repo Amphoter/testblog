@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Blog.Controllers
 {
@@ -28,16 +29,36 @@ namespace Blog.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            if (User.Identity.IsAuthenticated) {
+                return RedirectToAction("UserPage");
+            }
             return View();
         }
 
         [HttpPost]
         public IActionResult Create(UserInfo user)
         {
-            db.Users.Add(user);
-            db.SaveChanges();
+            if (User.Identity.IsAuthenticated) { 
+            UserInfo checkUser = db.Users.FirstOrDefault(p => p.Login == user.Login);
+            if (checkUser == null) {
+                db.Users.Add(user);
+                db.SaveChanges();
+                return Redirect("/Home");
+            }
+            else
+            {
+                ViewBag.Message = "This login already exists";
+                return View();
 
-            return Redirect("/Home");
+            }
+            }
+            else
+            {
+                return RedirectToAction("UserPage");
+            }
+
+
+
         }
         #endregion 
 
@@ -66,7 +87,7 @@ namespace Blog.Controllers
 
             if (ModelState.IsValid)
             {
-                UserInfo user = await db.Users.FirstOrDefaultAsync(u => u.Login == login && u.Password == pass);
+                UserInfo user =  db.Users.FirstOrDefault(u => u.Login == login && u.Password == pass);
                 if (user != null)
                 {
                      await Authenticate(login); // аутентификация
@@ -92,13 +113,17 @@ namespace Blog.Controllers
         }
         #endregion
 
+        //User page, editing/deleting user data
+        #region
+        
         public IActionResult UserPage()
         {
             if (User.Identity.IsAuthenticated)
             {
                 var name = User.Identity.Name;
-                ViewBag.name = name;
-                return View();
+                UserInfo user =  db.Users.FirstOrDefault(p => p.Login == name);
+                
+                return View(user);
             }
             else
             {
@@ -106,6 +131,64 @@ namespace Blog.Controllers
                 return View();
             }
         }
+
+        public IActionResult DeleteUser()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var name = User.Identity.Name;
+                UserInfo user = db.Users.FirstOrDefault(p => p.Login == name);
+                HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+                db.Users.Remove(user);
+                db.SaveChanges();
+                return Redirect("/Home");
+
+                
+            }
+            else
+            {
+                ViewBag.Message = "You should log in first";
+                return View();
+            }
+        }
+
+
+        [HttpGet]
+        public IActionResult EditUser()
+        {
+
+            if (User.Identity.IsAuthenticated)
+            {
+                UserInfo user = db.Users.FirstOrDefault(p => p.Login == User.Identity.Name);
+                if (user != null)
+                    return View(user);
+            }
+            return RedirectToAction("Login");
+        }
+        
+        [HttpPost]
+        public IActionResult EditUser(int age, string? email, string? name, string? password)
+        {
+            UserInfo user = db.Users.FirstOrDefault(p => p.Login == User.Identity.Name);
+            user.Name = name;
+            user.Email = email;
+            user.Age = age;
+            user.Password = password;
+            db.Users.Update(user);
+            db.SaveChanges();
+
+            return Redirect("/Home");
+
+            
+            ;
+
+        }
+
+
+
+
+
+
         public IActionResult SignOut()
         {
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
@@ -114,5 +197,7 @@ namespace Blog.Controllers
 
         }
 
+
+        #endregion
     }
 }
