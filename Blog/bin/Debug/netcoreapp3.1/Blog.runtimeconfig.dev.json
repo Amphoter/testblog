@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\Amphoter\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Amphoter\\.nuget\\packages"
+    ]
+  }
+}

@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Blog.Models.UserInfo>
+@{
+    ViewBag.Title = "Все пользователи";
+}
+Show one user:
+    <form asp-action="OneUser" asp-controller="Users" method="post">
+        <div class="form-group">
+            <label class="control-label">UserId</label>
+            <input name="id" type="number" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label class="control-label">UserName</label>
+            <input name="name" type="text" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Отправить" class="btn btn-default" />
+        </div>
+    </form>
+
+
+All users:
+<table class="table">
+    <tr><td>Имя</td><td>Возраст</td><td>Логин</td><td>Пароль</td><td>Email</td></tr>
+    @foreach (var item in Model)
+    {
+        <tr><td>@item.Name</td><td>@item.Age</td><td>@item.Login</td><td>@item.Password</td><td>@item.Email</td></tr>
+    }
+</table>

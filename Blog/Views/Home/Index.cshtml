@@ -1,0 +1,20 @@
+﻿@model IEnumerable<Blog.Models.Post>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-left">
+    <h1 class="display-4">Welcome</h1>
+    
+       
+        @foreach (var item in Model)
+        {
+<p>
+    
+    @item.MainText<br/>
+    @item.UserName<br/>
+    <a class="btn btn-secondary btn-sm"asp-action="AddPost" asp-controller="Posts">Reply</a>
+</p>
+        }
+    
+</div>
