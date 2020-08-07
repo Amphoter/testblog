@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Blog.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,7 +20,7 @@ namespace Blog.Controllers
             db = context;
         }
 
-
+       
         //Вывод пользователей на экран
         #region
         [HttpGet]
@@ -28,6 +29,7 @@ namespace Blog.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 return View(db.Users);
+                
             }
             else
             {
@@ -53,8 +55,9 @@ namespace Blog.Controllers
                 if (user != null)
                     return View(user);
             }
-
-            return NotFound();
+           
+            ViewBag.Message = "User not found";
+            return View();
 
         }
         #endregion

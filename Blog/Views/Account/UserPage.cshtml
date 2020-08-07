@@ -19,5 +19,10 @@ Your information:
 
         </table>
 <div><a class="btn btn-info" asp-action="EditUser" asp-controller="Account">Edit information </a> </div>
-<div><a class="btn btn-primary" asp-area="" asp-controller="Account" asp-action="SignOut">SignOut</a></div>
+<div><a class="btn btn-primary" asp-area="" asp-controller="Account" asp-action="SignOut">Sign out</a></div>
 <div><a class="btn btn-warning" asp-area="" asp-controller="Account" asp-action="DeleteUser">Delete my account</a></div>
+@if (User.IsInRole("admin"))
+{
+    <p>Admin Panel</p>
+<div><a class="btn btn-warning" asp-area="" asp-controller="Users" asp-action="AllUsers">Show all users</a></div>
+}

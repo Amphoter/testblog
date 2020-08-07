@@ -284,7 +284,6 @@ D:\Prog\c#\Blog\testblog\Blog\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.c
 D:\Prog\c#\Blog\testblog\Blog\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
 D:\Prog\c#\Blog\testblog\Blog\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
 D:\Prog\c#\Blog\testblog\Blog\obj\Debug\netcoreapp3.1\Razor\Views\Users\AddPost.cshtml.g.cs
-D:\Prog\c#\Blog\testblog\Blog\obj\Debug\netcoreapp3.1\Razor\Views\Users\AllUsers.cshtml.g.cs
 D:\Prog\c#\Blog\testblog\Blog\obj\Debug\netcoreapp3.1\Razor\Views\Users\OneUser.cshtml.g.cs
 D:\Prog\c#\Blog\testblog\Blog\obj\Debug\netcoreapp3.1\Razor\Views\_ViewImports.cshtml.g.cs
 D:\Prog\c#\Blog\testblog\Blog\obj\Debug\netcoreapp3.1\Razor\Views\_ViewStart.cshtml.g.cs
@@ -300,3 +299,4 @@ D:\Prog\c#\Blog\testblog\Blog\obj\Debug\netcoreapp3.1\Blog.genruntimeconfig.cach
 D:\Prog\c#\Blog\testblog\Blog\obj\Debug\netcoreapp3.1\Razor\temp\AddPost.cshtml.g.cs
 D:\Prog\c#\Blog\testblog\Blog\obj\Debug\netcoreapp3.1\Razor\temp\UserPage.cshtml.g.cs
 D:\Prog\c#\Blog\testblog\Blog\obj\Debug\netcoreapp3.1\Razor\Views\Account\EditUser.cshtml.g.cs
+D:\Prog\c#\Blog\testblog\Blog\obj\Debug\netcoreapp3.1\Razor\Views\Users\AllUsers.cshtml.g.cs

@@ -30,7 +30,7 @@ namespace Blog.Controllers
         public IActionResult Create()
         {
             if (User.Identity.IsAuthenticated) {
-                return RedirectToAction("UserPage");
+                return Redirect("/Home");
             }
             return View();
         }
@@ -38,10 +38,13 @@ namespace Blog.Controllers
         [HttpPost]
         public IActionResult Create(UserInfo user)
         {
-            if (User.Identity.IsAuthenticated) { 
-            UserInfo checkUser = db.Users.FirstOrDefault(p => p.Login == user.Login);
+            if (!User.Identity.IsAuthenticated) { 
+            UserInfo checkUser = db.Users.FirstOrDefault(p => p.Name == user.Name);
             if (checkUser == null) {
-                db.Users.Add(user);
+                    UserRole userRole =  db.UserRoles.FirstOrDefault(r => r.Name == "user");
+                    if (userRole != null)
+                        user.UserRole = userRole;
+                    db.Users.Add(user);
                 db.SaveChanges();
                 return Redirect("/Home");
             }
@@ -87,10 +90,10 @@ namespace Blog.Controllers
 
             if (ModelState.IsValid)
             {
-                UserInfo user =  db.Users.FirstOrDefault(u => u.Login == login && u.Password == pass);
+                UserInfo user =  db.Users.Include(u => u.UserRole).FirstOrDefault(u => u.Name == login && u.Password == pass);
                 if (user != null)
                 {
-                     await Authenticate(login); // аутентификация
+                     await Authenticate(user); // аутентификация
 
                     return Redirect("/Home");
                 }
@@ -99,12 +102,13 @@ namespace Blog.Controllers
             }
             return View();
         }
-        private async Task Authenticate(string userName)
+        private async Task Authenticate(UserInfo user)
         {
             // создаем один claim
             var claims = new List<Claim>
     {
-        new Claim(ClaimsIdentity.DefaultNameClaimType, userName)
+        new Claim(ClaimsIdentity.DefaultNameClaimType, user.Name),
+        new Claim(ClaimsIdentity.DefaultRoleClaimType, user.UserRole.Name)
     };
             // создаем объект ClaimsIdentity
             ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
@@ -119,9 +123,9 @@ namespace Blog.Controllers
         public IActionResult UserPage()
         {
             if (User.Identity.IsAuthenticated)
-            {
+            {//
                 var name = User.Identity.Name;
-                UserInfo user =  db.Users.FirstOrDefault(p => p.Login == name);
+                UserInfo user =  db.Users.FirstOrDefault(p => p.Name == name);
                 
                 return View(user);
             }

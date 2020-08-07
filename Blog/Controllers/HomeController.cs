@@ -38,7 +38,7 @@ namespace Blog.Controllers
         #region
         public IActionResult Index()
         {
-            
+           //  HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return View(db.Posts);
         }
 
